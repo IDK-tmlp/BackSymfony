@@ -16,6 +16,7 @@ class UserDataProvider implements ProviderInterface
     {
         $user = $this->security->getUser();
         $user = $this->userRepository->find($user);
+        $userId = $user->getId();
         $username = $user->getUserName();
         $money= $user->getMoney();
         $clicIncome = $user->getClicIncome();
@@ -23,6 +24,6 @@ class UserDataProvider implements ProviderInterface
         $userworkers = $user->getUserWorkers();
         $userupgrades = $user->getUpgrades();
         
-        return new UserDataDto(username : $username, money : $money, clicIncome : $clicIncome, lastConnection: $lastConnection, userworkers : $userworkers, userupgrades : $userupgrades);
+        return new UserDataDto(id : $userId, username : $username, money : $money, clicIncome : $clicIncome, lastConnection: $lastConnection, userworkers : $userworkers, userupgrades : $userupgrades);
     }
 }
