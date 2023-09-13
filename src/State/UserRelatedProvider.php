@@ -22,7 +22,7 @@ class UserRelatedProvider implements ProviderInterface
         $userworkers = $user->getUserWorkers();
         global $workers;
         foreach ($userworkers as $worker) {
-            $workers[] = $this->workerRepository->find($worker->getIdWorker());
+            $workers[] = [$this->workerRepository->find($worker->getIdWorker()) , $worker->getQuantity(), $worker->getCalculatedIncome()];
         }
         $userupgrades = $user->getUpgrades();
         if (!is_object($userupgrades)) {
@@ -30,7 +30,7 @@ class UserRelatedProvider implements ProviderInterface
                 $upgrades[] = $this->upgradeRepository->find($upgrade);
             }
         }else $upgrades=[];
-        
+
         return new UserRelatedDto(id : $userId, userworkers : $workers, userupgrades : $upgrades);
     }
 }
