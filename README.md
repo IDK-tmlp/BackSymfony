@@ -27,6 +27,10 @@
 - userworkers
 - userupgrades
 
+## /api/user/related
+1. [x] **GET**
+-> return { id:int, userworkers : Worker[], userupgrades : Upgrade[]}
+
 ## /api/user/reset
 1. [x] **GET**
 -> reset all user related data

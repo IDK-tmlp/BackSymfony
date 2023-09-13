@@ -15,10 +15,9 @@ use ApiPlatform\Metadata\Post;
 use App\Dto\UserDataDto;
 use App\State\UserDataProvider;
 use App\Controller\ResetDataController;
-use App\State\OnUpgradeBuyProcessor;
+use App\Dto\UserRelatedDto;
 use App\State\UserHashPasswordProcessor;
-use Symfony\Component\Validator\Constraints as Assert;
-
+use App\State\UserRelatedProvider;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
@@ -26,6 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(),
         new Get(uriTemplate: '/user/reset', controller: ResetDataController::class),
         new Get(uriTemplate: '/user/data', output : UserDataDto::class, provider : UserDataProvider::class),
+        new Get(uriTemplate: '/user/related', output : UserRelatedDto::class, provider : UserRelatedProvider::class),
         new Post(uriTemplate: '/register', processor: UserHashPasswordProcessor::class),
         new Patch(processor: UserHashPasswordProcessor::class),
         ]

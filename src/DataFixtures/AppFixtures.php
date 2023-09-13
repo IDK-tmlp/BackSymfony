@@ -61,11 +61,11 @@ class AppFixtures extends Fixture
 		$manager->clear();
 
 		$worker = new Worker();
-		$worker->setBaseIncome(1)->setBasePrice(50)->setName("Carapuce")->setIdWorkerType($this->workerTypeRepository->findOneBy(['type'=>'worker']));
+		$worker->setBaseIncome(0.5)->setBasePrice(25)->setName("Salameche")->setIdWorkerType($this->workerTypeRepository->findOneBy(['type'=>'worker']));
 		$manager->persist($worker);
 
 		$worker = new Worker();
-		$worker->setBaseIncome(0.5)->setBasePrice(25)->setName("Salameche")->setIdWorkerType($this->workerTypeRepository->findOneBy(['type'=>'worker']));
+		$worker->setBaseIncome(1)->setBasePrice(50)->setName("Carapuce")->setIdWorkerType($this->workerTypeRepository->findOneBy(['type'=>'worker']));
 		$manager->persist($worker);
 
 		$manager->flush();
