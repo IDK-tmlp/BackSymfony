@@ -20,13 +20,16 @@ class UserRelatedProvider implements ProviderInterface
         $user = $this->userRepository->find($user);
         $userId = $user->getId();
         $userworkers = $user->getUserWorkers();
+        global $workers;
         foreach ($userworkers as $worker) {
-            $workers[] = $this->workerRepository->find($worker);
+            $workers[] = $this->workerRepository->find($worker->getIdWorker());
         }
         $userupgrades = $user->getUpgrades();
-        foreach ($userupgrades as $upgrade) {
-            $upgrades[] = $this->upgradeRepository->find($upgrade);
-        }
+        if (!is_object($userupgrades)) {
+            foreach ($userupgrades as $upgrade) {
+                $upgrades[] = $this->upgradeRepository->find($upgrade);
+            }
+        }else $upgrades=[];
         
         return new UserRelatedDto(id : $userId, userworkers : $workers, userupgrades : $upgrades);
     }
