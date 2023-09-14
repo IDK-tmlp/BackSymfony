@@ -16,6 +16,7 @@ use App\Dto\UserDataDto;
 use App\State\UserDataProvider;
 use App\Controller\ResetDataController;
 use App\Dto\UserRelatedDto;
+use App\State\AddUserWorkerProcessor;
 use App\State\UserHashPasswordProcessor;
 use App\State\UserRelatedProvider;
 
@@ -27,6 +28,7 @@ use App\State\UserRelatedProvider;
         new Get(uriTemplate: '/user/data', output : UserDataDto::class, provider : UserDataProvider::class),
         new Get(uriTemplate: '/user/related', output : UserRelatedDto::class, provider : UserRelatedProvider::class),
         new Post(uriTemplate: '/register', processor: UserHashPasswordProcessor::class),
+        new Post(uriTemplate: '/user/workers/{id}', processor: AddUserWorkerProcessor::class),
         new Patch(processor: UserHashPasswordProcessor::class),
         ]
 )]

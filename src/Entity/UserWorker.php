@@ -5,16 +5,12 @@ namespace App\Entity;
 use App\Repository\UserWorkerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Patch;
-use ApiPlatform\Metadata\Post;
-use App\Dto\UserWorkerPatchDto;
 
 #[ORM\Entity(repositoryClass: UserWorkerRepository::class)]
 #[ApiResource(
     operations: [
-    new Post(uriTemplate: '/user/workers'),
-    new Patch(uriTemplate: '/user/workers/{id}')//, input: UserWorkerPatchDto::class)
+        new Patch(uriTemplate: '/user/workers/{id}')
     ]
 )]
 class UserWorker
@@ -48,7 +44,7 @@ class UserWorker
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): static
+    public function setQuantity(int $quantity = 1): static
     {
         $this->quantity = $quantity;
 

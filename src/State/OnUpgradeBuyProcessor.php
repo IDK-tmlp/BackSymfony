@@ -22,11 +22,11 @@ class OnUpgradeBuyProcessor implements ProcessorInterface
     }
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
-        dd($uriVariables);
         $upgrade= $this->upgradeRepository->find($uriVariables['id']);
         $user = $this->security->getUser();
         $user = $this->userRepository->find($user);
         $user->addUpgrade($upgrade);
+        $user->setLastConnection();
         $this->manager->persist($user);
         $this->manager->flush();
         $this->manager->clear();

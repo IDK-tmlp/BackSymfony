@@ -18,6 +18,7 @@ class UserRelatedProvider implements ProviderInterface
     {
         $user = $this->security->getUser();
         $user = $this->userRepository->find($user);
+        $user->setLastConnection();
         $userId = $user->getId();
         $userworkers = $user->getUserWorkers();
         global $workers;

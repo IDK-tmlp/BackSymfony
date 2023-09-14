@@ -16,6 +16,7 @@ class UserDataProvider implements ProviderInterface
     {
         $user = $this->security->getUser();
         $user = $this->userRepository->find($user);
+        $user->setLastConnection();
         $userId = $user->getId();
         $username = $user->getUserName();
         $money= $user->getMoney();
