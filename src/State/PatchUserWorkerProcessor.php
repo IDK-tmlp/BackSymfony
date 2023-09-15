@@ -11,7 +11,7 @@ use App\Repository\WorkerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class AddUserWorkerProcessor implements ProcessorInterface
+class PatchUserWorkerProcessor implements ProcessorInterface
 {
     public function __construct(
         private UpgradeRepository $upgradeRepository,
@@ -23,21 +23,21 @@ class AddUserWorkerProcessor implements ProcessorInterface
     }
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
     {
+        dd($data);
         $user = $this->security->getUser();
         $user = $this->userRepository->find($user);
-
         $worker = $this->workerRepository->find($uriVariables['id']);
         $userWorker = new UserWorker;
-
+        
         $quantity=1;
 
         $userWorker->setCalculatedIncome($worker->getBaseIncome())
-            ->setQuantity($quantity)
-            ->setIdUser($user)
+            ->setQuantity($userWorker->getQuantity() + $quantity)
             ->setIdWorker($worker);
 
         $user->addUserWorker($userWorker);
         $user->setLastConnection();
+        $this->manager->persist($userWorker);
         $this->manager->persist($user);
         $this->manager->flush();
         $this->manager->clear();
